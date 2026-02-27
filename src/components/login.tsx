@@ -20,10 +20,14 @@ import { validationLogin } from "@/Validation/validationLogin";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast, Toaster } from "sonner";
 import { useNavigate } from "react-router-dom";
+import type { AppDispatch, RootState } from "@/app/store";
+import { useDispatch, useSelector } from "react-redux";
+import { setlogin } from "@/features/login/sliceLogin";
 
 const login = () => {
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
+  const { login } = useSelector((state: RootState) => state.loginSlice);
   const [ispassword, setIsPassword] = useState<boolean>(true);
   const dates = [
     {
@@ -31,6 +35,7 @@ const login = () => {
       password: "Realiximche123",
     },
   ];
+  console.log(login);
   const form = useForm<z.infer<typeof validationLogin>>({
     resolver: zodResolver(validationLogin),
     defaultValues: {
@@ -49,6 +54,7 @@ const login = () => {
         toast.error("Iniciando Sesión...", {
           className: "!bg-blue-500 !text-white",
         });
+        dispatch(setlogin());
         navigate("/dashboard");
       } else {
         toast.error("Correo o Contraseña invalidos", {
