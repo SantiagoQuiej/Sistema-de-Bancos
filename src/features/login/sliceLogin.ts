@@ -1,17 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
-
-interface State {
-  email: string;
-  password: string;
-}
+import type { State } from "@/type/login";
 const initialState: State = {
-  email: "",
-  password: "",
+  data: { email: "lucasquiej@gmail.com", password: "Realiximch123" },
+  login: false,
 };
 
 export const LoginPageSlice = createSlice({
   name: "loginpage",
   initialState,
-  reducers: {},
+  reducers: {
+    setlogin: (state) => {
+      state.login = !state.login;
+    },
+  },
 });
+export const { setlogin } =LoginPageSlice.actions
 export default LoginPageSlice.reducer;

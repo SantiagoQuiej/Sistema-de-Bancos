@@ -1,14 +1,16 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import ContentSidebard from "./ContentSidebard";
 import { SquareArrowRightExit } from "lucide-react";
+import { useDispatch } from "react-redux";
+import { setlogin } from "@/features/login/sliceLogin";
 
 const MainLayout = () => {
-  const navigate=useNavigate()
-  const exit=()=>{
-    localStorage.removeItem('login')
-    navigate('/')
-
-  }
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const exit = () => {
+    localStorage.removeItem("login");
+    navigate("/");
+  };
   return (
     <>
       <div className="flex h-screen">
@@ -24,7 +26,10 @@ const MainLayout = () => {
               </div>
               <div className="flex  absolute right-2 md:right-7">
                 <div className="flex justify-center size-10 rounded-full hover:bg-gray-100 dark:hover:bg-white/20 transition duration-200 ease-in cursor-pointer">
-                  <SquareArrowRightExit onClick={()=>exit()} className="mt-2" />
+                  <SquareArrowRightExit
+                    onClick={() => (exit(), dispatch(setlogin()))}
+                    className="mt-2"
+                  />
                 </div>
               </div>
             </div>
