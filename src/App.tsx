@@ -1,13 +1,24 @@
-import { Routes, Route} from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import LoginPage from "./pages/authLogin";
+import DashBoard from "./pages/DashBoard";
+import MainLayout from "./components/MainLayout";
+
 function App() {
   return (
-    <div className="min-h-screen bg-gray-900 flex items-center justify-center">
-      <h1 className="text-4xl font-bold text-blue-100">
-        Tailwind funcionando🚀
-      </h1>
-    </div>
+    <BrowserRouter>
+      <Routes>
+
+        {/* Login SIN layout */}
+        <Route path="/" element={<LoginPage />} />
+
+        {/* Rutas protegidas con layout */}
+        <Route element={<MainLayout />}>
+          <Route path="/dashboard" element={<DashBoard />} />
+        </Route>
+
+      </Routes>
+    </BrowserRouter>
   );
 }
 
 export default App;
-
