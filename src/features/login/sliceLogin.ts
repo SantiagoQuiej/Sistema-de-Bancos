@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { State } from "@/type/login";
 const initialState: State = {
   data: { email: "lucasquiej@gmail.com", password: "Realiximch123" },
-  login: false,
+  loginstate: false,
 };
 
 export const LoginPageSlice = createSlice({
@@ -10,7 +10,7 @@ export const LoginPageSlice = createSlice({
   initialState,
   reducers: {
     setlogin: (state) => {
-      state.login = !state.login;
+      state.loginstate = !state.loginstate;
     },
   },
 });
