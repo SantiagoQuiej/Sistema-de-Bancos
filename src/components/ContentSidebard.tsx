@@ -1,4 +1,10 @@
-import { ArrowUpRight, CircleUser, CloudBackup, History } from "lucide-react";
+import {
+  ArrowDownToLine,
+  ArrowRightLeft,
+  ArrowUpRight,
+  CircleUser,
+  History,
+} from "lucide-react";
 import { NavLink } from "react-router-dom";
 
 const ContentSidebard = () => {
@@ -9,8 +15,13 @@ const ContentSidebard = () => {
       name: "Cuentas",
     },
     {
+      ruta: "/deposito",
+      icon: ArrowDownToLine,
+      name: "Depositos",
+    },
+    {
       ruta: "/tranferencia",
-      icon: CloudBackup,
+      icon: ArrowRightLeft,
       name: "Tranferencia",
     },
     {

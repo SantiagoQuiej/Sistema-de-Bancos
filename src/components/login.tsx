@@ -20,14 +20,13 @@ import { validationLogin } from "@/Validation/validationLogin";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast, Toaster } from "sonner";
 import { useNavigate } from "react-router-dom";
-import type { AppDispatch, RootState } from "@/app/store";
-import { useDispatch, useSelector } from "react-redux";
+import type { AppDispatch } from "@/app/store";
+import { useDispatch } from "react-redux";
 import { setlogin } from "@/features/login/sliceLogin";
 
 const login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
-  const { login } = useSelector((state: RootState) => state.loginSlice);
   const [ispassword, setIsPassword] = useState<boolean>(true);
   const dates = [
     {
@@ -35,7 +34,7 @@ const login = () => {
       password: "Realiximche123",
     },
   ];
-  console.log(login);
+
   const form = useForm<z.infer<typeof validationLogin>>({
     resolver: zodResolver(validationLogin),
     defaultValues: {
