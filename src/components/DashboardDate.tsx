@@ -3,6 +3,7 @@ import {
   ArrowDownToLine,
   ArrowRightLeft,
   ArrowUpRight,
+  Save,
   Wallet,
 } from "lucide-react";
 import { useSelector } from "react-redux";
@@ -37,9 +38,10 @@ const DashboardDate = () => {
   return (
     <>
       <div className="w-full h-fit ">
-        <div className="font-bold text-2xl">Buenos dias Lucas</div>
-        <br />
-        <div>Aqui tienes un resumen de tu cuenta</div>
+        <div className="font-bold text-2xl">Buenos dias, Lucas</div>
+        <div className="text-muted-foreground">
+          Aqui tienes un resumen de tu cuenta
+        </div>
         <div>
           <Card className="py-4 text-white mt-4 mb-4 border w-full bg-blue-700">
             <CardContent className="flex flex-col gap-3">
@@ -59,13 +61,16 @@ const DashboardDate = () => {
               <span className={`font-medium`}>Cuenta principal</span>
             </CardContent>
           </Card>
-          <div className="flex justify-center gap-20 px-8">
+          <div className="flex flex-wrap justify-center gap-20 px-8">
             {date.info.map((item, index) => {
               return (
                 <Card key={index + 1} className="py-4 mt-4 border-gray-40">
                   <CardContent className="flex gap-10 px-10">
                     <div className="flex flex-col items-center justify-center gap-2">
-                      <span className="text-sm font-bold">{item.title}</span>
+                      <Save className="text-blue-600" />
+                      <span className="text-sm font-bold text-center">
+                        {item.title}
+                      </span>
                       <span className="text-sm text-muted-foreground ">
                         {item.total}
                       </span>
@@ -76,8 +81,8 @@ const DashboardDate = () => {
             })}
           </div>
         </div>
-        <p className="mt-5 font-bold text-xl">Acciones Rapidas</p>
-        <div className="flex justify-center gap-20 px-8">
+        <p className="mt-5 font-bold text-xl text-center">Acciones Rapidas</p>
+        <div className="flex flex-wrap justify-center gap-20 px-8">
           {route.map((item, index) => {
             return (
               <Card
