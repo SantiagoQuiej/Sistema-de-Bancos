@@ -52,7 +52,7 @@ const ContentSidebard = () => {
           className={({ isActive }) =>
             isActive
               ? "flex p-2 rounded-xl bg-gray-500 dark:bg-white/10 text-blue-400 dark:text-slate-500"
-              : "flex p-2 hover:bg-gray-100 rounded-xl transition ease-in dark:hover:bg-white/10"
+              : "flex p-2 hover:bg-gray-400 rounded-xl transition ease-in dark:hover:bg-white/10"
           }
         >
           <span className="ml-2">Dashboard</span>
@@ -68,7 +68,7 @@ const ContentSidebard = () => {
               to={item.ruta}
               className={({ isActive }) =>
                 isActive
-                  ? "flex p-2 rounded-xl bg-gray-100 dark:bg-white/10 text-blue-700 dark:text-slate-500"
+                  ? "flex p-2 rounded-xl bg-gray-500 dark:bg-white/10 text-blue-400 dark:text-slate-500"
                   : "flex p-2 hover:bg-gray-400 rounded-xl transition ease-in dark:hover:bg-white/10"
               }
             >
