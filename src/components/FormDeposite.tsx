@@ -6,8 +6,8 @@ import {
   Zap,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
-import type { RootState } from "@/app/store";
-import { useSelector } from "react-redux";
+import type { AppDispatch, RootState } from "@/app/store";
+import { useDispatch, useSelector } from "react-redux";
 import { Button } from "./ui/button";
 import {
   Form,
@@ -23,10 +23,17 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import type z from "zod";
 import { validacionDeposito } from "@/Validation/validacionDeposito";
 import { cn } from "@/lib/utils";
+import { setDeposite } from "@/features/dashboard/slicedashboard";
+import { useEffect, useState } from "react";
+import { toast, Toaster } from "sonner";
+import { addDeposite } from "@/features/DepositeHistory/SliceHistoryDeposite";
 
 const FormDeposite = () => {
   const info = useSelector((state: RootState) => state.dashboardSlice.data);
-
+  const [monto, setmonto] = useState({
+    balance: 0,
+  });
+  const dispatch = useDispatch<AppDispatch>();
   const form = useForm<z.infer<typeof validacionDeposito>>({
     resolver: zodResolver(validacionDeposito),
     defaultValues: {
@@ -37,12 +44,27 @@ const FormDeposite = () => {
   });
 
   const sendData = (data: z.infer<typeof validacionDeposito>) => {
-    console.log(data);
+    const dateList = {
+      ...data,
+      fecha: new Date().toLocaleDateString(),
+    };
+    dispatch(addDeposite(dateList))
+    dispatch(setDeposite(Number(data.amount)));
+    toast.error("Deposito Exitoso", {
+      className: "!bg-green-500 !text-white",
+    });
   };
+
+  useEffect(() => {
+    setmonto({
+      balance: info.balance,
+    });
+    form.reset();
+  }, [info.balance]);
 
   return (
     <div className="w-full h-fit">
-      {/* HEADER SUPERIOR */}
+      <Toaster position="top-center" offset={10} />
       <Card className="py-4 text-white mt-4 mb-4 border w-full bg-linear-to-r from-blue-700 via-blue-600 to-blue-800">
         <CardContent className="flex justify-between gap-3 flex-wrap mt-5 mb-5">
           <div className="flex flex-col">
@@ -78,7 +100,7 @@ const FormDeposite = () => {
 
           <div className="flex flex-col items-end h-fit p-2 bg-blue-500/35 rounded-lg">
             <span className="font-bold text-white/80">Saldo Pricial</span>
-            <h1 className="text-xl font-bold">Q.{info.balance}</h1>
+            <h1 className="text-xl font-bold">Q.{monto.balance}</h1>
           </div>
         </CardContent>
       </Card>
@@ -207,7 +229,9 @@ const FormDeposite = () => {
               <span className="text-sm text-muted-foreground">
                 Saldo Disponible
               </span>
-              <div className="text-3xl font-bold text-gray-900">Q. 12,000</div>
+              <div className="text-3xl font-bold text-gray-900">
+                Q. {monto.balance}
+              </div>
             </CardContent>
           </Card>
           <Card className="py-4 border w-ful">
