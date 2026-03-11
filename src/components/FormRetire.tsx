@@ -47,7 +47,11 @@ const FormRetire = () => {
 
   const sendData = (data: z.infer<typeof validacionDeposito>) => {
     if (info.balance >= 0 && Number(data.amount) <= info.balance) {
-      dispatch(addRetire(data));
+      const dateList = {
+        ...data,
+        fecha: new Date().toLocaleDateString(),
+      };
+      dispatch(addRetire(dateList));
       dispatch(setRetire(Number(data.amount)));
       toast.error("Retiro exitoso", {
         className: "!bg-green-500 !text-white",
