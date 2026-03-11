@@ -4,6 +4,7 @@ import DashBoard from "./pages/DashBoard";
 import MainLayout from "./components/MainLayout";
 import PrivateRoute from "./components/PrivateRoute";
 import DepositoPage from "./pages/DepositoPage";
+import Retirepage from "./pages/Retirepage";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route element={<MainLayout />}>
             <Route path="/dashboard" element={<DashBoard />} />
             <Route path="/deposito" element={<DepositoPage />} />
+            <Route path="/retiros" element={<Retirepage />} />
             <Route path="/*" element={<h1>404 Page not Found</h1>} />
           </Route>
         </Route>
