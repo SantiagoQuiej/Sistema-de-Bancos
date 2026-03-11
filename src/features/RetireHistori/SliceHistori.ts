@@ -9,7 +9,6 @@ export const HistoriSliceRetire = createSlice({
   initialState,
   reducers: {
     addRetire: (state, actions) => {
-      console.log(actions.payload,"Hoooolla");
       state.data.push(actions.payload);
     },
   },

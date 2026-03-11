@@ -28,6 +28,8 @@ import { addRetire } from "@/features/RetireHistori/SliceHistori";
 import { useEffect, useState } from "react";
 import { setRetire } from "@/features/dashboard/slicedashboard";
 
+import { toast, Toaster } from "sonner";
+
 const FormRetire = () => {
   const info = useSelector((state: RootState) => state.dashboardSlice.data);
   const [Info, setInfo] = useState({
@@ -44,8 +46,17 @@ const FormRetire = () => {
   });
 
   const sendData = (data: z.infer<typeof validacionDeposito>) => {
-    dispatch(addRetire(data));
-    dispatch(setRetire(Number(data.amount)));
+    if (info.balance >= 0 && Number(data.amount) <= info.balance) {
+      dispatch(addRetire(data));
+      dispatch(setRetire(Number(data.amount)));
+      toast.error("Retiro exitoso", {
+        className: "!bg-green-500 !text-white",
+      });
+    } else {
+      toast.error("Saldo insuficiente", {
+        className: "!bg-red-500 !text-white",
+      });
+    }
   };
 
   useEffect(() => {
@@ -58,8 +69,12 @@ const FormRetire = () => {
     });
   }, [info.balance]);
 
+  useEffect(() => {
+    form.reset();
+  }, [info.balance]);
   return (
     <div className="w-full h-fit">
+      <Toaster position="top-center" offset={10} />
       <Card className="py-4 mt-4 mb-4 border w-full bg-gray-200">
         <CardContent className="flex justify-between gap-3 flex-wrap mt-5 mb-5">
           <div className="flex flex-col">
